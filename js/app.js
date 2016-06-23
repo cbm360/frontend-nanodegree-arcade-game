@@ -21,10 +21,16 @@ Enemy.prototype.update = function(dt) {
     //console.log(ctx);
     this.x += this.speed * dt;
 
+    //Start back at the begining when the end of the canvas is reached
     if (this.x >= 505) {
-        this.x = 0
+        this.x = 0;
+        this.speed = getRandomInt(50, 150);
     }
 
+    //Use a random speed setting between 50 and 150
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -57,9 +63,9 @@ Player.prototype.handleInput = function() {
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
 
-var enemyRowOne = new Enemy(0, 60, 30);
-var enemyRowTwo = new Enemy(0, 145, 40);
-var enemyRowThree = new Enemy(0, 225, 50);
+var enemyRowOne = new Enemy(0, 60, 70);
+var enemyRowTwo = new Enemy(0, 145, 125);
+var enemyRowThree = new Enemy(0, 225, 175);
 
 //enemyVeryFast.render();
 allEnemies.push(enemyRowOne, enemyRowTwo, enemyRowThree);
