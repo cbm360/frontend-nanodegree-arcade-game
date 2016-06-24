@@ -24,7 +24,7 @@ Enemy.prototype.update = function(dt) {
     //Start back at the begining when the end of the canvas is reached
     if (this.x >= 505) {
         this.x = 0;
-        this.speed = getRandomInt(50, 150);
+        this.speed = getRandomInt(80, 200);
     }
 
     //Use a random speed setting between 50 and 150
@@ -63,7 +63,7 @@ Player.prototype.handleInput = function() {
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
 
-var enemyRowOne = new Enemy(0, 60, 70);
+var enemyRowOne = new Enemy(0, 60, 80);
 var enemyRowTwo = new Enemy(0, 145, 125);
 var enemyRowThree = new Enemy(0, 225, 175);
 
