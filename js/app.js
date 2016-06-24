@@ -32,14 +32,14 @@ Enemy.prototype.update = function(dt) {
                     return item.y == 60;
                 }).length;
 
-        if (rowOneEnemyCount < 2 && allEnemies.length < 5) {
+        if (rowOneEnemyCount < 2 && allEnemies.length < 4) {
             console.log(rowThreeEnemyCount);
             allEnemies.push(new Enemy(0, 60, getRandomInt(80, 200)));
         }
-        if (rowTwoEnemyCount < 2 && allEnemies.length < 5) {
+        if (rowTwoEnemyCount < 2 && allEnemies.length < 4) {
             allEnemies.push(new Enemy(0, 145, getRandomInt(80, 200)));
         }
-        if (rowThreeEnemyCount < 2 && allEnemies.length < 4) {
+        if (rowThreeEnemyCount < 2 && allEnemies.length < 5) {
             allEnemies.push(new Enemy(0, 225, getRandomInt(80, 200)));
         }
     }
