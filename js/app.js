@@ -18,8 +18,31 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
-    //console.log(ctx);
     this.x += this.speed * dt;
+
+    //When enemy reaches the last block start another enemy in the same ro
+    if (this.x >= 100) {
+        var rowOneEnemyCount = allEnemies.filter(function(item) {
+                    return item.y == 60;
+                }).length,
+            rowTwoEnemyCount = allEnemies.filter(function(item) {
+                    return item.y == 60;
+                }).length,
+            rowThreeEnemyCount = allEnemies.filter(function(item) {
+                    return item.y == 60;
+                }).length;
+
+        if (rowOneEnemyCount < 2 && allEnemies.length < 5) {
+            console.log(rowThreeEnemyCount);
+            allEnemies.push(new Enemy(0, 60, getRandomInt(80, 200)));
+        }
+        if (rowTwoEnemyCount < 2 && allEnemies.length < 5) {
+            allEnemies.push(new Enemy(0, 145, getRandomInt(80, 200)));
+        }
+        if (rowThreeEnemyCount < 2 && allEnemies.length < 4) {
+            allEnemies.push(new Enemy(0, 225, getRandomInt(80, 200)));
+        }
+    }
 
     //Start back at the begining when the end of the canvas is reached
     if (this.x >= 505) {
