@@ -20,7 +20,7 @@ Enemy.prototype.update = function(dt) {
 
     this.x += this.speed * dt;
 
-    //When enemy reaches the last block start another enemy in the same ro
+    //Add additional enemies to make the game move difficult
     if (this.x >= 100) {
         var rowOneEnemyCount = allEnemies.filter(function(item) {
                     return item.y == 60;
@@ -78,8 +78,20 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
-Player.prototype.handleInput = function() {
-
+Player.prototype.handleInput = function(input) {
+    //Allow player to move in all 4 directions within the board
+    if (input == 'left' && this.x > 0) {
+        this.x -= 100;
+    }
+    if (input == 'up' && this.y > 0) {
+        this.y -= 85;
+    }
+    if (input == 'right' && this.x < 400) {
+        this.x += 100;
+    }
+    if (input == 'down' && this.y < 350) {
+        this.y += 85;
+    }
 }
 
 // Now instantiate your objects.
