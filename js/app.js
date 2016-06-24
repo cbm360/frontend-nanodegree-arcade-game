@@ -33,7 +33,6 @@ Enemy.prototype.update = function(dt) {
                 }).length;
 
         if (rowOneEnemyCount < 2 && allEnemies.length < 4) {
-            console.log(rowThreeEnemyCount);
             allEnemies.push(new Enemy(0, 60, getRandomInt(80, 200)));
         }
         if (rowTwoEnemyCount < 2 && allEnemies.length < 4) {
@@ -71,7 +70,10 @@ var Player = function() {
 }
 
 Player.prototype.update = function() {
-
+    // Reset to begining if successfully cross the road
+    if (this.y == -40) {
+        this.y = 300;
+    }
 }
 
 Player.prototype.render = function() {
