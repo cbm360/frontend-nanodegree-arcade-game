@@ -62,16 +62,16 @@ Enemy.prototype.addEnemy = function(enemy, level){
             }
         }
     }
-}
+};
 
 // If enemy collides with player, send player back to the begining
 Enemy.prototype.collision = function() {
-    if (player.x >= (Math.round(this.x) - 70)
-    && player.x <= (Math.round(this.x) + 70)
-    && player.y == this.y) {
+    if (player.x >= (Math.round(this.x) - 70) &&
+        player.x <= (Math.round(this.x) + 70) &&
+        player.y == this.y) {
         player.y = 300;
     }
-}
+};
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -80,15 +80,15 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 200;
     this.y = 300;
-}
+};
 
 Player.prototype.update = function() {
     this.win();
-}
+};
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Player.prototype.handleInput = function(input) {
     //Allow player to move in all 4 directions within the board
@@ -104,7 +104,7 @@ Player.prototype.handleInput = function(input) {
     if (input == 'down' && this.y < 350) {
         this.y += 85;
     }
-}
+};
 
 Player.prototype.win = function() {
     // Player scores 1 point every time they cross the road successfully
@@ -126,11 +126,11 @@ Player.prototype.win = function() {
         this.level = 3;
         playerLevelElem.innerHTML = 'Level: ' + this.level;
     }
-}
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-allEnemies = [];
+var allEnemies = [];
 
 //Create 3 initial enemies at each y level
 allEnemies.push(new Enemy(0, 45, 80));
@@ -139,8 +139,8 @@ allEnemies.push(new Enemy(0, 215, 175));
 
 //Use a random int, this is used for speed settings
 var getRandomInt = function(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
+    return Math.floor(Math.random() * (max - min)) + min;
+};
 
 // Place the player object in a variable called player
 var player = new Player();
