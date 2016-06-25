@@ -18,30 +18,9 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
+    addEnemy(this);
+
     this.x += this.speed * dt;
-
-    //Add additional enemies to make the game move difficult
-    // if (this.x >= 100) {
-    //     var rowOneEnemyCount = allEnemies.filter(function(item) {
-    //                 return item.y == 60;
-    //             }).length,
-    //         rowTwoEnemyCount = allEnemies.filter(function(item) {
-    //                 return item.y == 60;
-    //             }).length,
-    //         rowThreeEnemyCount = allEnemies.filter(function(item) {
-    //                 return item.y == 60;
-    //             }).length;
-
-    //     if (rowOneEnemyCount < 2 && allEnemies.length < 4) {
-    //         allEnemies.push(new Enemy(0, 45, getRandomInt(80, 200)));
-    //     }
-    //     if (rowTwoEnemyCount < 2 && allEnemies.length < 4) {
-    //         allEnemies.push(new Enemy(0, 130, getRandomInt(80, 200)));
-    //     }
-    //     if (rowThreeEnemyCount < 2 && allEnemies.length < 5) {
-    //         allEnemies.push(new Enemy(0, 215, getRandomInt(80, 200)));
-    //     }
-    // }
 
     //Start back at the begining when the end of the canvas is reached
     if (this.x >= 505) {
@@ -50,18 +29,10 @@ Enemy.prototype.update = function(dt) {
     }
 
     //Collision with player send player back to the begining
-    // if ((Math.round(this.x) + 75 == player.x || Math.round(this.x) - 75 == player.x) && this.y == player.y) {
-    //     player.y = 300;
-    // }
     if (player.x >= (Math.round(this.x) - 75)
     && player.x <= (Math.round(this.x) + 75)
     && player.y == this.y) {
         player.y = 300;
-    }
-
-    //Use a random speed setting between 50 and 150
-    function getRandomInt(min, max) {
-      return Math.floor(Math.random() * (max - min)) + min;
     }
 };
 
@@ -127,12 +98,42 @@ Player.prototype.handleInput = function(input) {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
- allEnemies = [];
+var allEnemies = [];
 
+//Create 3 initial enemies at each y level
 allEnemies.push(new Enemy(0, 45, 80));
 allEnemies.push(new Enemy(0, 130, 125));
 allEnemies.push(new Enemy(0, 215, 175));
 
+//Use a random int, this is used for speed settings
+var getRandomInt = function(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
+//Add additional enemies to increase difficulty
+var addEnemy = function(enemy){
+    if (enemy.x >= 100) {
+        var rowOneEnemyCount = allEnemies.filter(function(item) {
+                    return item.y == 60;
+                }).length,
+            rowTwoEnemyCount = allEnemies.filter(function(item) {
+                    return item.y == 60;
+                }).length,
+            rowThreeEnemyCount = allEnemies.filter(function(item) {
+                    return item.y == 60;
+                }).length;
+
+        if (rowOneEnemyCount < 2 && allEnemies.length < 4) {
+            allEnemies.push(new Enemy(0, 45, getRandomInt(80, 200)));
+        }
+        if (rowTwoEnemyCount < 2 && allEnemies.length < 4) {
+            allEnemies.push(new Enemy(0, 130, getRandomInt(80, 200)));
+        }
+        if (rowThreeEnemyCount < 2 && allEnemies.length < 5) {
+            allEnemies.push(new Enemy(0, 215, getRandomInt(80, 200)));
+        }
+    }
+}
 
 // Place the player object in a variable called player
 var player = new Player();
