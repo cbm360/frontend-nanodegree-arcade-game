@@ -18,7 +18,7 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
-    addEnemy(this);
+    addEnemy(this, player.level);
 
     this.x += this.speed * dt;
 
@@ -33,7 +33,6 @@ Enemy.prototype.update = function(dt) {
     && player.x <= (Math.round(this.x) + 70)
     && player.y == this.y) {
         player.y = 300;
-        player.loose();
     }
 };
 
@@ -97,14 +96,9 @@ Player.prototype.win = function() {
     }
 }
 
-Player.prototype.loose = function() {
-    this.score--;
-    playerScoreElem.innerHTML = 'Score: ' + this.score;
-}
-
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-var allEnemies = [];
+allEnemies = [];
 
 //Create 3 initial enemies at each y level
 allEnemies.push(new Enemy(0, 45, 80));
@@ -117,26 +111,28 @@ var getRandomInt = function(min, max) {
 }
 
 //Add additional enemies to increase difficulty
-var addEnemy = function(enemy){
-    if (enemy.x >= 100) {
+var addEnemy = function(enemy, level){
+    if (enemy.x >= (120 - (level*10)) && level > 1) {
         var rowOneEnemyCount = allEnemies.filter(function(item) {
-                    return item.y == 60;
+                    return item.y == 45;
                 }).length,
             rowTwoEnemyCount = allEnemies.filter(function(item) {
-                    return item.y == 60;
+                    return item.y == 130;
                 }).length,
             rowThreeEnemyCount = allEnemies.filter(function(item) {
-                    return item.y == 60;
+                    return item.y == 230;
                 }).length;
 
-        if (rowOneEnemyCount < 2 && allEnemies.length < 4) {
-            allEnemies.push(new Enemy(0, 45, getRandomInt(80, 200)));
-        }
-        if (rowTwoEnemyCount < 2 && allEnemies.length < 4) {
-            allEnemies.push(new Enemy(0, 130, getRandomInt(80, 200)));
-        }
-        if (rowThreeEnemyCount < 2 && allEnemies.length < 5) {
-            allEnemies.push(new Enemy(0, 215, getRandomInt(80, 200)));
+        if (allEnemies.length < level + 2) {
+            if (rowThreeEnemyCount < level) {
+                allEnemies.push(new Enemy(0, 215, getRandomInt((40*level), 100*level)));
+            }
+            if (rowTwoEnemyCount < level) {
+                allEnemies.push(new Enemy(0, 130, getRandomInt((40*level), 200*level)));
+            }
+            if (rowOneEnemyCount < level) {
+                allEnemies.push(new Enemy(0, 45, getRandomInt((40*level), 200*level)));
+            }
         }
     }
 }
