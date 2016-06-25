@@ -33,6 +33,7 @@ Enemy.prototype.update = function(dt) {
     && player.x <= (Math.round(this.x) + 70)
     && player.y == this.y) {
         player.y = 300;
+        player.loose();
     }
 };
 
@@ -51,29 +52,7 @@ var Player = function() {
 }
 
 Player.prototype.update = function() {
-    // Reset to begining if successfully cross the road
-    if (this.y == -40) {
-        this.y = 300;
-    }
-
-    // Collision with enemy
-    var enemyX = new Array;
-    for (var i in allEnemies) {
-        enemyX.push(allEnemies[i].x);
-    }
-    function inArray(playerX, enemyX)
-    {
-        var count=enemyX.length;
-        for(var i = 0; i < count; i++) {
-            if(Math.round(enemyX[i]) == playerX){
-                //console.log('colision');
-                //player.y = 300;
-            }
-        }
-        return false;
-    }
-    inArray(this.x, enemyX);
-
+    this.win();
 }
 
 Player.prototype.render = function() {
@@ -94,6 +73,20 @@ Player.prototype.handleInput = function(input) {
     if (input == 'down' && this.y < 350) {
         this.y += 85;
     }
+}
+
+Player.prototype.win = function() {
+    // Player scores 1 point every time they cross the road successfully
+    if (this.y == -40) {
+        this.y = 300;
+        this.score++;
+        console.log(this.score);
+    }
+}
+
+Player.prototype.loose = function() {
+    this.score--;
+    console.log(this.score);
 }
 
 // Now instantiate your objects.
@@ -137,7 +130,7 @@ var addEnemy = function(enemy){
 
 // Place the player object in a variable called player
 var player = new Player();
-
+player.score = 0;
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
