@@ -18,7 +18,7 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
-    addEnemy(this, player.level);
+    this.addEnemy(this, player.level);
 
     this.x += this.speed * dt;
 
@@ -28,18 +28,50 @@ Enemy.prototype.update = function(dt) {
         this.speed = getRandomInt(80, 200);
     }
 
-    //Collision with player send player back to the begining
-    if (player.x >= (Math.round(this.x) - 70)
-    && player.x <= (Math.round(this.x) + 70)
-    && player.y == this.y) {
-        player.y = 300;
-    }
+    this.collision();
+
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+//Add additional enemies to increase difficulty
+Enemy.prototype.addEnemy = function(enemy, level){
+    if (enemy.x >= (120 - (level*10)) && level > 1) {
+        var rowOneEnemyCount = allEnemies.filter(function(item) {
+                    return item.y == 45;
+                }).length,
+            rowTwoEnemyCount = allEnemies.filter(function(item) {
+                    return item.y == 130;
+                }).length,
+            rowThreeEnemyCount = allEnemies.filter(function(item) {
+                    return item.y == 230;
+                }).length;
+
+        if (allEnemies.length < level + 2) {
+            if (rowThreeEnemyCount < level) {
+                allEnemies.push(new Enemy(0, 215, getRandomInt((40*level), 100*level)));
+            }
+            if (rowTwoEnemyCount < level) {
+                allEnemies.push(new Enemy(0, 130, getRandomInt((40*level), 200*level)));
+            }
+            if (rowOneEnemyCount < level) {
+                allEnemies.push(new Enemy(0, 45, getRandomInt((40*level), 200*level)));
+            }
+        }
+    }
+}
+
+// If enemy collides with player, send player back to the begining
+Enemy.prototype.collision = function() {
+    if (player.x >= (Math.round(this.x) - 70)
+    && player.x <= (Math.round(this.x) + 70)
+    && player.y == this.y) {
+        player.y = 300;
+    }
+}
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -108,33 +140,6 @@ allEnemies.push(new Enemy(0, 215, 175));
 //Use a random int, this is used for speed settings
 var getRandomInt = function(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
-}
-
-//Add additional enemies to increase difficulty
-var addEnemy = function(enemy, level){
-    if (enemy.x >= (120 - (level*10)) && level > 1) {
-        var rowOneEnemyCount = allEnemies.filter(function(item) {
-                    return item.y == 45;
-                }).length,
-            rowTwoEnemyCount = allEnemies.filter(function(item) {
-                    return item.y == 130;
-                }).length,
-            rowThreeEnemyCount = allEnemies.filter(function(item) {
-                    return item.y == 230;
-                }).length;
-
-        if (allEnemies.length < level + 2) {
-            if (rowThreeEnemyCount < level) {
-                allEnemies.push(new Enemy(0, 215, getRandomInt((40*level), 100*level)));
-            }
-            if (rowTwoEnemyCount < level) {
-                allEnemies.push(new Enemy(0, 130, getRandomInt((40*level), 200*level)));
-            }
-            if (rowOneEnemyCount < level) {
-                allEnemies.push(new Enemy(0, 45, getRandomInt((40*level), 200*level)));
-            }
-        }
-    }
 }
 
 // Place the player object in a variable called player
