@@ -75,20 +75,17 @@ Player.prototype.handleInput = function(input) {
     }
 }
 
-var playerScoreElem = document.querySelector('#playerScore');
 Player.prototype.win = function() {
     // Player scores 1 point every time they cross the road successfully
     if (this.y == -40) {
         this.y = 300;
         this.score++;
-        console.log(playerScoreElem);
         playerScoreElem.innerHTML = 'Score: ' + this.score;
     }
 }
 
 Player.prototype.loose = function() {
     this.score--;
-    console.log(this.score);
     playerScoreElem.innerHTML = 'Score: ' + this.score;
 }
 
@@ -134,6 +131,8 @@ var addEnemy = function(enemy){
 // Place the player object in a variable called player
 var player = new Player();
 player.score = 0;
+
+var playerScoreElem = document.querySelector('#playerScore');
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
