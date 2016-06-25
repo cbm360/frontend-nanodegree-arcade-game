@@ -29,8 +29,8 @@ Enemy.prototype.update = function(dt) {
     }
 
     //Collision with player send player back to the begining
-    if (player.x >= (Math.round(this.x) - 75)
-    && player.x <= (Math.round(this.x) + 75)
+    if (player.x >= (Math.round(this.x) - 70)
+    && player.x <= (Math.round(this.x) + 70)
     && player.y == this.y) {
         player.y = 300;
     }
