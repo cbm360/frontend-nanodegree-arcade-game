@@ -82,6 +82,19 @@ Player.prototype.win = function() {
         this.score++;
         playerScoreElem.innerHTML = 'Score: ' + this.score;
     }
+
+    if (this.score <= 3) {
+        this.level = 1;
+        playerLevelElem.innerHTML = 'Level: ' + this.level;
+    }
+    if (this.score > 3 && this.score <= 6) {
+        this.level = 2;
+        playerLevelElem.innerHTML = 'Level: ' + this.level;
+    }
+    if (this.score > 6 && this.score <= 9) {
+        this.level = 3;
+        playerLevelElem.innerHTML = 'Level: ' + this.level;
+    }
 }
 
 Player.prototype.loose = function() {
@@ -131,8 +144,10 @@ var addEnemy = function(enemy){
 // Place the player object in a variable called player
 var player = new Player();
 player.score = 0;
+player.level = 1;
 
 var playerScoreElem = document.querySelector('#playerScore');
+var playerLevelElem = document.querySelector('#playerLevel');
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
