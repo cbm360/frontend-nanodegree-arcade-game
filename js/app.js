@@ -21,27 +21,27 @@ Enemy.prototype.update = function(dt) {
     this.x += this.speed * dt;
 
     //Add additional enemies to make the game move difficult
-    if (this.x >= 100) {
-        var rowOneEnemyCount = allEnemies.filter(function(item) {
-                    return item.y == 60;
-                }).length,
-            rowTwoEnemyCount = allEnemies.filter(function(item) {
-                    return item.y == 60;
-                }).length,
-            rowThreeEnemyCount = allEnemies.filter(function(item) {
-                    return item.y == 60;
-                }).length;
+    // if (this.x >= 100) {
+    //     var rowOneEnemyCount = allEnemies.filter(function(item) {
+    //                 return item.y == 60;
+    //             }).length,
+    //         rowTwoEnemyCount = allEnemies.filter(function(item) {
+    //                 return item.y == 60;
+    //             }).length,
+    //         rowThreeEnemyCount = allEnemies.filter(function(item) {
+    //                 return item.y == 60;
+    //             }).length;
 
-        if (rowOneEnemyCount < 2 && allEnemies.length < 4) {
-            allEnemies.push(new Enemy(0, 45, getRandomInt(80, 200)));
-        }
-        if (rowTwoEnemyCount < 2 && allEnemies.length < 4) {
-            allEnemies.push(new Enemy(0, 130, getRandomInt(80, 200)));
-        }
-        if (rowThreeEnemyCount < 2 && allEnemies.length < 5) {
-            allEnemies.push(new Enemy(0, 215, getRandomInt(80, 200)));
-        }
-    }
+    //     if (rowOneEnemyCount < 2 && allEnemies.length < 4) {
+    //         allEnemies.push(new Enemy(0, 45, getRandomInt(80, 200)));
+    //     }
+    //     if (rowTwoEnemyCount < 2 && allEnemies.length < 4) {
+    //         allEnemies.push(new Enemy(0, 130, getRandomInt(80, 200)));
+    //     }
+    //     if (rowThreeEnemyCount < 2 && allEnemies.length < 5) {
+    //         allEnemies.push(new Enemy(0, 215, getRandomInt(80, 200)));
+    //     }
+    // }
 
     //Start back at the begining when the end of the canvas is reached
     if (this.x >= 505) {
@@ -50,7 +50,12 @@ Enemy.prototype.update = function(dt) {
     }
 
     //Collision with player send player back to the begining
-    if ((Math.round(this.x) + 75 == player.x || Math.round(this.x) - 75 == player.x) && this.y == player.y) {
+    // if ((Math.round(this.x) + 75 == player.x || Math.round(this.x) - 75 == player.x) && this.y == player.y) {
+    //     player.y = 300;
+    // }
+    if (player.x >= (Math.round(this.x) - 75)
+    && player.x <= (Math.round(this.x) + 75)
+    && player.y == this.y) {
         player.y = 300;
     }
 
