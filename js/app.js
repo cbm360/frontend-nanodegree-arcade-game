@@ -33,13 +33,13 @@ Enemy.prototype.update = function(dt) {
                 }).length;
 
         if (rowOneEnemyCount < 2 && allEnemies.length < 4) {
-            allEnemies.push(new Enemy(0, 60, getRandomInt(80, 200)));
+            allEnemies.push(new Enemy(0, 45, getRandomInt(80, 200)));
         }
         if (rowTwoEnemyCount < 2 && allEnemies.length < 4) {
-            allEnemies.push(new Enemy(0, 145, getRandomInt(80, 200)));
+            allEnemies.push(new Enemy(0, 130, getRandomInt(80, 200)));
         }
         if (rowThreeEnemyCount < 2 && allEnemies.length < 5) {
-            allEnemies.push(new Enemy(0, 225, getRandomInt(80, 200)));
+            allEnemies.push(new Enemy(0, 215, getRandomInt(80, 200)));
         }
     }
 
@@ -47,6 +47,11 @@ Enemy.prototype.update = function(dt) {
     if (this.x >= 505) {
         this.x = 0;
         this.speed = getRandomInt(80, 200);
+    }
+
+    //Collision with player send player back to the begining
+    if ((Math.round(this.x) + 75 == player.x || Math.round(this.x) - 75 == player.x) && this.y == player.y) {
+        player.y = 300;
     }
 
     //Use a random speed setting between 50 and 150
@@ -74,6 +79,25 @@ Player.prototype.update = function() {
     if (this.y == -40) {
         this.y = 300;
     }
+
+    // Collision with enemy
+    var enemyX = new Array;
+    for (var i in allEnemies) {
+        enemyX.push(allEnemies[i].x);
+    }
+    function inArray(playerX, enemyX)
+    {
+        var count=enemyX.length;
+        for(var i = 0; i < count; i++) {
+            if(Math.round(enemyX[i]) == playerX){
+                //console.log('colision');
+                //player.y = 300;
+            }
+        }
+        return false;
+    }
+    inArray(this.x, enemyX);
+
 }
 
 Player.prototype.render = function() {
@@ -98,11 +122,12 @@ Player.prototype.handleInput = function(input) {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-var allEnemies = [];
+ allEnemies = [];
 
-allEnemies.push(new Enemy(0, 60, 80));
-allEnemies.push(new Enemy(0, 145, 125));
-allEnemies.push(new Enemy(0, 225, 175));
+allEnemies.push(new Enemy(0, 45, 80));
+allEnemies.push(new Enemy(0, 130, 125));
+allEnemies.push(new Enemy(0, 215, 175));
+
 
 // Place the player object in a variable called player
 var player = new Player();
