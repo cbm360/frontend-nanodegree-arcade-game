@@ -83,7 +83,7 @@ var Player = function() {
 };
 
 Player.prototype.update = function() {
-    this.win();
+
 };
 
 Player.prototype.render = function() {
@@ -104,6 +104,8 @@ Player.prototype.handleInput = function(input) {
     if (input == 'down' && this.y < 350) {
         this.y += 85;
     }
+
+    player.win();
 };
 
 Player.prototype.win = function() {
