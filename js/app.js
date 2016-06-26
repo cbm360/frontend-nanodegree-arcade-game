@@ -80,6 +80,8 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 200;
     this.y = 300;
+    this.score = 0;
+    this.level = 1;
 };
 
 Player.prototype.update = function() {
@@ -146,8 +148,6 @@ var getRandomInt = function(min, max) {
 
 // Place the player object in a variable called player
 var player = new Player();
-player.score = 0;
-player.level = 1;
 
 var playerScoreElem = document.querySelector('#playerScore');
 var playerLevelElem = document.querySelector('#playerLevel');
